@@ -12,6 +12,8 @@ github.com/nikitalystsev/BookSmart-services v0.0.0-20240910225524-d39b2d5f7cdb h
 github.com/nikitalystsev/BookSmart-services v0.0.0-20240910225524-d39b2d5f7cdb/go.mod h1:j63j5SHSuxxgv8O5jHUCgmWX0FsxU6AK0nrt8MNrFss=
 github.com/nikitalystsev/BookSmart-services v0.0.0-20240916130654-a8eb46a9d4f9 h1:7lkFasoWqgAQm99ANCbcEldyM35w0Qe/2E6cfgOfFWU=
 github.com/nikitalystsev/BookSmart-services v0.0.0-20240916130654-a8eb46a9d4f9/go.mod h1:JbPrba/KXP9DrltY1yuz09AFgNANLzqetT+TYROKbwQ=
+github.com/nikitalystsev/BookSmart-services v0.0.0-20240916211448-42517bf0a11c h1:yS8nwiyHLEwDgiNcvxNoFuCx6dp2Qi6z2tg/jtB0N0Y=
+github.com/nikitalystsev/BookSmart-services v0.0.0-20240916211448-42517bf0a11c/go.mod h1:j63j5SHSuxxgv8O5jHUCgmWX0FsxU6AK0nrt8MNrFss=
 github.com/nikitalystsev/BookSmart-services/v2 v2.0.0-20240910191541-4425b5ca1020 h1:hR9QctOu7jTPFrJtZR3VI5Rxhk0iou/+8mneXequKUc=
 github.com/nikitalystsev/BookSmart-services/v2 v2.0.0-20240910191541-4425b5ca1020/go.mod h1:rstaW3X8wfEhlcrdhwdBbVXw7HFi5vL9Ee/mxjM0z8g=
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240910192555-0526fe46c268 h1:z5mbyf6Jvdgo9Dw9ANGwIKUyv9YUt77vgUFU1EV34x0=
@@ -24,6 +26,8 @@ github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916131643-41f3c43cde2e h1
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916131643-41f3c43cde2e/go.mod h1:8ET1lqN2Y3AfakB/gulOrn53Jji8WU98ExYFQdADohU=
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916142452-a7e999dc688b h1:hMWOr08lz1HsvZA2Yq+pPq76mf5UMnifgGckNIj2hig=
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916142452-a7e999dc688b/go.mod h1:8ET1lqN2Y3AfakB/gulOrn53Jji8WU98ExYFQdADohU=
+github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916211855-ff1c9d70fea2 h1:DKhJjQFwt5VHuL26x+WPr/pj38ui83lrrWJ05bsjUnk=
+github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916211855-ff1c9d70fea2/go.mod h1:I7h1UGvs5B7zx4LLyzKBAWQazBUp4/y64zTJ8Am7WNw=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=
