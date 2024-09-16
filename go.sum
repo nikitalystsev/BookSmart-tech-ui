@@ -22,6 +22,8 @@ github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916130636-7741bc1de872 h1
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916130636-7741bc1de872/go.mod h1:ffwQtMZJNzz5DASUFWjHmfErDmXId/EV/KRJsqA5poM=
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916131643-41f3c43cde2e h1:Go3b2g4Uhb1VAxwlhFJbdKN258LlNl+OZkD99NtA+5Q=
 github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916131643-41f3c43cde2e/go.mod h1:8ET1lqN2Y3AfakB/gulOrn53Jji8WU98ExYFQdADohU=
+github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916142452-a7e999dc688b h1:hMWOr08lz1HsvZA2Yq+pPq76mf5UMnifgGckNIj2hig=
+github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916142452-a7e999dc688b/go.mod h1:8ET1lqN2Y3AfakB/gulOrn53Jji8WU98ExYFQdADohU=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=

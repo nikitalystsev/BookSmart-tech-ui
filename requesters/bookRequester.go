@@ -74,6 +74,10 @@ func (r *Requester) ProcessBookCatalogActions() error {
 			if err = r.viewBookRatings(); err != nil {
 				fmt.Printf("\n\n%s\n", err.Error())
 			}
+		case 7:
+			if err = r.addNewBookRating(); err != nil {
+				fmt.Printf("\n\n%s\n", err.Error())
+			}
 		case 0:
 			return nil
 		default:
@@ -261,10 +265,53 @@ func (r *Requester) ViewBook() error {
 		return err
 	}
 
-	printBook(book, num)
+	avgRating, err := r.getAvgRatingForBook(bookID)
+	if err != nil {
+		return err
+	}
+
+	printBook(book, avgRating, num)
 
 	return nil
 
+}
+
+func (r *Requester) getAvgRatingForBook(bookID uuid.UUID) (float32, error) {
+	request := HTTPRequest{
+		Method: http.MethodGet,
+		URL:    r.baseURL + "/ratings/avg",
+		Headers: map[string]string{
+			"Content-Type": "application/json",
+		},
+		QueryParams: map[string]string{
+			"book_id": bookID.String(),
+		},
+		Timeout: 10 * time.Second,
+	}
+
+	response, err := SendRequest(request)
+	if err != nil {
+		return -1, err
+	}
+
+	if response.StatusCode == http.StatusNotFound {
+		return -1, nil
+	}
+
+	if response.StatusCode != http.StatusOK {
+		var info string
+		if err = json.Unmarshal(response.Body, &info); err != nil {
+			return -1, err
+		}
+		return -1, errors.New(info)
+	}
+
+	var avgRating dto.AvgRatingDTO
+	if err = json.Unmarshal(response.Body, &avgRating); err != nil {
+		return -1, err
+	}
+
+	return avgRating.AvgRating, nil
 }
 
 func (r *Requester) AddToFavorites() error {
@@ -363,12 +410,73 @@ func (r *Requester) viewBookRatings() error {
 		return errors.New(info)
 	}
 
-	var ratings []*jsonmodels.RatingModel
+	var ratings []*dto.RatingOutputDTO
 	if err = json.Unmarshal(response.Body, &ratings); err != nil {
 		return err
 	}
 
 	printRatings(ratings, num)
+
+	return nil
+}
+
+func (r *Requester) addNewBookRating() error {
+	var tokens dto.ReaderTokensDTO
+	if err := r.cache.Get(tokensKey, &tokens); err != nil {
+		return err
+	}
+
+	var bookPagesID []uuid.UUID
+	if err := r.cache.Get(booksKey, &bookPagesID); err != nil {
+		return err
+	}
+
+	num, err := input.BookPagesNumber()
+	if err != nil {
+		return err
+	}
+
+	if num > len(bookPagesID) || num < 0 {
+		return errors.New("book number out of range")
+	}
+
+	bookID := bookPagesID[num]
+
+	ratingDTO, err := input.RatingParams()
+	if err != nil {
+		return err
+	}
+	ratingDTO.BookID = bookID
+
+	request := HTTPRequest{
+		Method: http.MethodPost,
+		URL:    r.baseURL + "/api/ratings",
+		Headers: map[string]string{
+			"Content-Type":  "application/json",
+			"Authorization": fmt.Sprintf("Bearer %s", tokens.AccessToken),
+		},
+		Body:    ratingDTO,
+		Timeout: 10 * time.Second,
+	}
+
+	response, err := SendRequest(request)
+	if err != nil {
+		return err
+	}
+
+	if response.StatusCode == http.StatusUnauthorized {
+		return errors.New("you are not authenticated")
+	}
+
+	if response.StatusCode != http.StatusCreated {
+		var info string
+		if err = json.Unmarshal(response.Body, &info); err != nil {
+			return err
+		}
+		return errors.New(info)
+	}
+
+	fmt.Printf("\n\nRating was successfully added!\n")
 
 	return nil
 }
@@ -428,7 +536,7 @@ func (r *Requester) ReserveBook() error {
 	return nil
 }
 
-func printBook(book *jsonmodels.BookModel, num int) {
+func printBook(book *jsonmodels.BookModel, avgRating float32, num int) {
 	t := table.NewWriter()
 	t.SetTitle(fmt.Sprintf("Book №%d", num))
 	t.SetStyle(table.StyleBold)
@@ -444,18 +552,24 @@ func printBook(book *jsonmodels.BookModel, num int) {
 	t.AppendRow(table.Row{"Language", book.Language})
 	t.AppendRow(table.Row{"Age Limit", book.AgeLimit})
 
+	if avgRating == -1 {
+		t.AppendRow(table.Row{"Avg Rating", "Has no rating"})
+	} else {
+		t.AppendRow(table.Row{"Avg Rating", fmt.Sprintf("%.1f", avgRating)})
+	}
+
 	fmt.Println(t.Render())
 }
 
-func printRatings(ratings []*jsonmodels.RatingModel, offset int) {
+func printRatings(ratings []*dto.RatingOutputDTO, offset int) {
 	t := table.NewWriter()
 	t.SetTitle(fmt.Sprintf("Отзывы на книгу №%d", offset))
 	t.SetStyle(table.StyleBold)
 	t.Style().Format.Header = text.FormatTitle
-	t.AppendHeader(table.Row{"No.", "Review", "Rating"})
+	t.AppendHeader(table.Row{"No.", "Reader", "Review", "Rating"})
 
 	for i, rating := range ratings {
-		t.AppendRow(table.Row{offset + i, rating.Review, rating.Rating})
+		t.AppendRow(table.Row{offset + i, rating.Reader, rating.Review, rating.Rating})
 	}
 	fmt.Println(t.Render())
 }

@@ -7,7 +7,7 @@ require (
 	github.com/howeyc/gopass v0.0.0-20210920133722-c8aef6fb66ef
 	github.com/jedib0t/go-pretty/v6 v6.5.9
 	github.com/nikitalystsev/BookSmart-services v0.0.0-20240916130654-a8eb46a9d4f9
-	github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916131643-41f3c43cde2e
+	github.com/nikitalystsev/BookSmart-web-api v0.0.0-20240916142452-a7e999dc688b
 )
 
 require (
