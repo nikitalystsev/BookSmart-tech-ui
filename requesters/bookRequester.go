@@ -70,6 +70,10 @@ func (r *Requester) ProcessBookCatalogActions() error {
 			if err = r.ReserveBook(); err != nil {
 				fmt.Printf("\n\n%s\n", err.Error())
 			}
+		case 6:
+			if err = r.viewBookRatings(); err != nil {
+				fmt.Printf("\n\n%s\n", err.Error())
+			}
 		case 0:
 			return nil
 		default:
